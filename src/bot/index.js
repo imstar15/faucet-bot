@@ -27,7 +27,7 @@ const sendMessage = (roomId, msg) => {
 }
 
 bot.on('RoomMember.membership', (_, member) => {
-  console.log('RoomMember.membership');
+  console.log('RoomMember.membership, member: ', member);
   if (member.membership === 'invite' && member.userId === '@westend_faucet:matrix.org') {
     bot.joinRoom(member.roomId).done(() => {
       console.log(`Auto-joined ${member.roomId}.`);
@@ -36,7 +36,7 @@ bot.on('RoomMember.membership', (_, member) => {
 });
 
 bot.on('Room.timeline', async (event) => {
-  console.log('Room.timeline');
+  console.log('Room.timeline, event: ', event);
   if (event.getType() !== 'm.room.message') {
     return; // Only act on messages (for now).
   }
