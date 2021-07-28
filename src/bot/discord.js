@@ -13,6 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => {
+  console.log('msg: ', msg);
   let [action, arg0, arg1] = msg.content.split(' ');
   console.log('action: ', action);
   console.log('arg0: ', arg0);
