@@ -51,14 +51,14 @@ client.on('message', async msg => {
       return;
     }
 
-    msg.reply(`Sent ${sender} ${amount} mWNDs.`);
+    msg.reply(`Sent ${sender} ${amount} OAKs.`);
   }
 
   if (action === '!faucet') {
     msg.reply(`
 Usage:
   !balance - Get the faucet's balance.
-  !drip <Address> - Send Westend WNDs to <Address>.
+  !drip <Address> - Send OAKs to <Address>.
   !faucet - Prints usage information.`);
   }
 });
