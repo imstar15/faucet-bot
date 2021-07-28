@@ -12,8 +12,8 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
-  let [action, arg0, arg1] = msg.split(' ');
+client.on('message', async msg => {
+  let [action, arg0, arg1] = msg.content.split(' ');
   console.log('action: ', action);
   console.log('arg0: ', arg0);
   console.log('arg1: ', arg1);
