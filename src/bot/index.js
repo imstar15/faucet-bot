@@ -27,6 +27,7 @@ const sendMessage = (roomId, msg) => {
 }
 
 bot.on('RoomMember.membership', (_, member) => {
+  console.log('RoomMember.membership, member: ', member);
   if (member.membership === 'invite' && member.userId === '@westend_faucet:matrix.org') {
     bot.joinRoom(member.roomId).done(() => {
       console.log(`Auto-joined ${member.roomId}.`);
@@ -35,6 +36,7 @@ bot.on('RoomMember.membership', (_, member) => {
 });
 
 bot.on('Room.timeline', async (event) => {
+  console.log('Room.timeline, event: ', event);
   if (event.getType() !== 'm.room.message') {
     return; // Only act on messages (for now).
   }
@@ -42,6 +44,9 @@ bot.on('Room.timeline', async (event) => {
   const { content: { body }, event_id: eventId, room_id: roomId, sender } = event.event;
 
   let [action, arg0, arg1] = body.split(' ');
+  console.log('action: ', action);
+  console.log('arg0: ', arg0);
+  console.log('arg1: ', arg1);
 
   if (action === '!balance') {
     const res = await ax.get('/balance');
