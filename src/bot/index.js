@@ -44,6 +44,9 @@ bot.on('Room.timeline', async (event) => {
   const { content: { body }, event_id: eventId, room_id: roomId, sender } = event.event;
 
   let [action, arg0, arg1] = body.split(' ');
+  console.log('action: ', action);
+  console.log('arg0: ', arg0);
+  console.log('arg1: ', arg1);
 
   if (action === '!balance') {
     const res = await ax.get('/balance');
