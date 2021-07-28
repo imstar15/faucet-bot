@@ -20,7 +20,7 @@ client.on('message', async msg => {
     const res = await ax.get('/balance');
     const balance = res.data;
 
-    msg.reply(`The faucet has ${balance/10**15} WNDs remaining.`, `The faucet has ${balance/10**15} OAKs remaining.`);
+    msg.reply(`The faucet has ${balance/10**10} OAKs remaining.`, `The faucet has ${balance/10**10} OAKs remaining.`);
   }
 
   if (action === '!drip') {
