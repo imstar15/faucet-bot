@@ -14,7 +14,8 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
   console.log('msg: ', msg);
-  let [action, arg0, arg1] = msg.content.split(' ');
+  const { content, author: { id: sender } } = msg;
+  let [action, arg0, arg1] = content.split(' ');
   console.log('action: ', action);
   console.log('arg0: ', arg0);
   console.log('arg1: ', arg1);
