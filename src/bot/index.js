@@ -47,7 +47,7 @@ bot.on('Room.timeline', async (event) => {
     const res = await ax.get('/balance');
     const balance = res.data;
 
-    bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**15} OAKs remaining.`, `The faucet has ${balance/10**15} OAKs remaining.`)
+    bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**10} OAKs remaining.`, `The faucet has ${balance/10**10} OAKs remaining.`)
   }
 
   if (action === '!drip') {
