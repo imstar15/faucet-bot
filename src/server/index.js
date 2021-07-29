@@ -7,19 +7,6 @@ const Actions = require('./actions.js');
 const Storage = require('./storage.js');
 const config = require('./config');
 
-// Check config valid
-const { mnemonic, endpoint } = config;
-
-if (!mnemonic) {
-  console.error('Launch failed. FAUCET_MNEMONIC evironment variable is not set.');
-  return;
-}
-
-if (!endpoint) {
-  console.error('Launch failed. CHAIN_WS_ENDPOINT evironment variable is not set.');
-  return;
-}
-
 const storage = new Storage();
 
 const app = express();
