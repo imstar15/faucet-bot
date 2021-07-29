@@ -1,6 +1,19 @@
+require('dotenv').config()
 const Discord = require('discord.js');
 const axios = require('axios');
 const pdKeyring = require('@polkadot/keyring');
+const config = require('../config');
+
+// Check environment variables valid
+if (!process.env.ACCESS_TOKEN) {
+  throw Error('Launch failed. ACCESS_TOKEN evironment variable is not set.');
+}
+
+if (!process.env.BACKEND_URL) {
+  throw Error('Launch failed. BACKEND_URL evironment variable is not set.');
+}
+
+const { tokenSymbol, sendAmount, polkascanUrl, units } = config;
 
 let ax = axios.create({
   baseURL: process.env.BACKEND_URL,
@@ -20,7 +33,7 @@ client.on('message', async msg => {
     const res = await ax.get('/balance');
     const balance = res.data;
 
-    msg.reply(`The faucet has ${balance/10**10} OAKs remaining.`, `The faucet has ${balance/10**10} OAKs remaining.`);
+    msg.reply(`The faucet has ${balance/units} ${tokenSymbol}s remaining.`, `The faucet has ${balance/units} ${tokenSymbol}s remaining.`);
   }
 
   if (action === '!drip') {
@@ -31,7 +44,7 @@ client.on('message', async msg => {
       return;
     }
 
-    let amount = 150;
+    let amount = sendAmount;
     if (sender.endsWith(':web3.foundation') && arg1) {
       amount = arg1;
     }
@@ -47,14 +60,14 @@ client.on('message', async msg => {
       return;
     }
 
-    msg.reply(`Sent ${sender} ${amount} OAKs.`);
+    msg.reply(`Sent ${sender} ${amount} ${tokenSymbol}s. [View on Subscan.](${polkascanUrl}/transaction/${res.data})`);
   }
 
   if (action === '!faucet') {
     msg.reply(`
 Usage:
   !balance - Get the faucet's balance.
-  !drip <Address> - Send OAKs to <Address>.
+  !drip <Address> - Send ${tokenSymbol}s to <Address>.
   !faucet - Prints usage information.`);
   }
 });
