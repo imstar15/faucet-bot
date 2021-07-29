@@ -60,7 +60,7 @@ client.on('message', async msg => {
       return;
     }
 
-    msg.reply(`Sent ${sender} ${amount} ${tokenSymbol}s. View on Subscan: ${polkascanUrl}/extrinsic/${res.data}.`);
+    msg.reply(`Sent ${sender} ${amount} ${tokenSymbol}s. View on Subscan: ${polkascanUrl}/transaction/${res.data}.`);
   }
 
   if (action === '!faucet') {
