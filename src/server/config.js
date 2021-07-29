@@ -1,5 +1,11 @@
+const { units, sendAmount } = require('../config')
+
 module.exports = {
-  endpoint: 'ws://178.128.102.21:9946', // testnet node
+  mnemonic: process.env.FAUCET_MNEMONIC,
+  endpoint: process.env.CHAIN_WS_ENDPOINT,
+  units,
+  sendAmount,
+  sendTimesLimit: 1,
   types: {
     ProjectIndex: 'u32',
     ProjectOf: 'Project',

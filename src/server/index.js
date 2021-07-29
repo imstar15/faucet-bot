@@ -5,21 +5,35 @@ require('dotenv').config()
 const Actions = require('./actions.js');
 
 const Storage = require('./storage.js');
+const config = require('./config');
+
+// Check config valid
+const { mnemonic, endpoint } = config;
+
+if (!mnemonic) {
+  console.error('Launch failed. FAUCET_MNEMONIC evironment variable is no set.');
+  return;
+}
+
+if (!endpoint) {
+  console.error('Launch failed. CHAIN_WS_ENDPOINT evironment variable is no set.');
+  return;
+}
+
 const storage = new Storage();
 
 const app = express();
 app.use(bodyParser.json());
 const port = 5555;
 
-const mnemonic = process.env.MNEMONIC;
-
 app.get('/health', (_, res) => {
   res.send('Faucet backend is healthy.');
 });
 
 const createAndApplyActions = async () => {
+
   const actions = new Actions();
-  await actions.create(mnemonic);
+  await actions.create(config);
 
   app.get('/balance', async (_, res) => {
     const balance = await actions.checkBalance();
@@ -29,7 +43,7 @@ const createAndApplyActions = async () => {
   app.post('/bot-endpoint', async (req, res) => {
     const { address, amount, sender } = req.body;
 
-    if (!(await storage.isValid(sender, address)) && !sender.endsWith(':web3.foundation')) {
+    if (!(await storage.isValid(sender, address, config.sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
       res.send('LIMIT');
     } else {
       storage.saveData(sender, address);
@@ -54,4 +68,3 @@ const main = async () => {
 try {
   main();
 } catch (e) { console.error(e); }
-
