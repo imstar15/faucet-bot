@@ -1,6 +1,6 @@
 const { units, sendAmount } = require('../config')
 
-// Check config valid
+// Check evironment variable valid
 if (!process.env.FAUCET_MNEMONIC) {
   throw Error('Launch failed. FAUCET_MNEMONIC evironment variable is not set.');
 }
