@@ -103,7 +103,7 @@ bot.on('Room.timeline', async (event) => {
     sendMessage(roomId, `
 Usage:
   !balance - Get the faucet's balance.
-  !drip <Address> - Send Westend OAKs to <Address>.
+  !drip <Address> - Send ${tokenSymbol}s to <Address>.
   !faucet - Prints usage information.`);
   }
 });
