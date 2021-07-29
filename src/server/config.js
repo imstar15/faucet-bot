@@ -1,5 +1,14 @@
 const { units, sendAmount } = require('../config')
 
+// Check evironment variables valid
+if (!process.env.FAUCET_MNEMONIC) {
+  throw Error('Launch failed. FAUCET_MNEMONIC evironment variable is not set.');
+}
+
+if (!process.env.CHAIN_WS_ENDPOINT) {
+  throw Error('Launch failed. FAUCET_MNEMONIC evironment variable is not set.');
+}
+
 module.exports = {
   mnemonic: process.env.FAUCET_MNEMONIC,
   endpoint: process.env.CHAIN_WS_ENDPOINT,

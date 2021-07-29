@@ -7,19 +7,6 @@ const Actions = require('./actions.js');
 const Storage = require('./storage.js');
 const config = require('./config');
 
-// Check config valid
-const { mnemonic, endpoint } = config;
-
-if (!mnemonic) {
-  console.error('Launch failed. FAUCET_MNEMONIC evironment variable is no set.');
-  return;
-}
-
-if (!endpoint) {
-  console.error('Launch failed. CHAIN_WS_ENDPOINT evironment variable is no set.');
-  return;
-}
-
 const storage = new Storage();
 
 const app = express();
@@ -31,9 +18,9 @@ app.get('/health', (_, res) => {
 });
 
 const createAndApplyActions = async () => {
-
+  const { mnemonic, endpoint, types, units, sendTimesLimit } = config;
   const actions = new Actions();
-  await actions.create(config);
+  await actions.create({ mnemonic, endpoint, types, units });
 
   app.get('/balance', async (_, res) => {
     const balance = await actions.checkBalance();
@@ -43,7 +30,7 @@ const createAndApplyActions = async () => {
   app.post('/bot-endpoint', async (req, res) => {
     const { address, amount, sender } = req.body;
 
-    if (!(await storage.isValid(sender, address, config.sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
+    if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
       res.send('LIMIT');
     } else {
       storage.saveData(sender, address);
