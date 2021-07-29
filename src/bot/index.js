@@ -1,7 +1,22 @@
 const mSDK = require('matrix-js-sdk');
 const axios = require('axios');
 const pdKeyring = require('@polkadot/keyring');
+const config = require('../config');
 require('dotenv').config()
+
+if (!process.env.MATRIX_ACCESS_TOKEN) {
+  throw Error('Launch failed. MATRIX_ACCESS_TOKEN evironment variable is not set.');
+}
+
+if (!process.env.MATRIX_USER_ID) {
+  throw Error('Launch failed. MATRIX_USER_ID evironment variable is not set.');
+}
+
+if (!process.env.BACKEND_URL) {
+  throw Error('Launch failed. BACKEND_URL evironment variable is not set.');
+}
+
+const { tokenSymbol, sendAmount, polkascanUrl, units } = config;
 
 const bot = mSDK.createClient({
   baseUrl: 'https://matrix.org',
@@ -13,7 +28,6 @@ const bot = mSDK.createClient({
 let ax = axios.create({
   baseURL: process.env.BACKEND_URL,
   timeout: 10000,
-
 });
 
 const sendMessage = (roomId, msg) => {
@@ -39,7 +53,7 @@ bot.on('Room.timeline', async (event) => {
     return; // Only act on messages (for now).
   }
 
-  const { content: { body }, event_id: eventId, room_id: roomId, sender } = event.event;
+  const { content: { body }, room_id: roomId, sender } = event.event;
 
   let [action, arg0, arg1] = body.split(' ');
 
@@ -47,7 +61,11 @@ bot.on('Room.timeline', async (event) => {
     const res = await ax.get('/balance');
     const balance = res.data;
 
-    bot.sendHtmlMessage(roomId, `The faucet has ${balance/10**10} OAKs remaining.`, `The faucet has ${balance/10**10} OAKs remaining.`)
+    bot.sendHtmlMessage(
+      roomId,
+      `The faucet has ${balance/units} ${tokenSymbol}s remaining.`,
+      `The faucet has ${balance/units} ${tokenSymbol}s remaining.`
+    );
   }
 
   if (action === '!drip') {
@@ -58,7 +76,7 @@ bot.on('Room.timeline', async (event) => {
       return;
     }
 
-    let amount = 150;
+    let amount = sendAmount;
     if (sender.endsWith(':web3.foundation') && arg1) {
       amount = arg1;
     }
@@ -74,7 +92,11 @@ bot.on('Room.timeline', async (event) => {
       return;
     }
 
-    bot.sendHtmlMessage(roomId, `Sent ${sender} ${amount} OAKs.`);
+    bot.sendHtmlMessage(
+      roomId,
+      `Sent ${sender} ${amount} ${tokenSymbol}s. Extrinsic hash: ${res.data}.`,
+      `Sent ${sender} ${amount} ${tokenSymbol}s. <a href="${polkascanUrl}/transaction/${res.data}">View on Polkascan.</a>`
+    );
   }
 
   if (action === '!faucet') {
