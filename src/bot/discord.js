@@ -56,7 +56,7 @@ client.on('message', async msg => {
     });
 
     if (res.data === 'LIMIT') {
-      msg.reply(`${sender} has reached their daily quota. Only request one per 24 hours.`);
+      msg.reply(`${sender} has reached their daily quota. Only request once per 24 hours.`);
       return;
     }
 
