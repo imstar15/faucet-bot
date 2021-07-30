@@ -40,7 +40,7 @@ client.on('message', async msg => {
     try {
       pdKeyring.decodeAddress(arg0);
     } catch (e) {
-      msg.reply(`${sender} provided an incompatible address.`);
+      msg.reply(`You provided an incompatible address.`);
       return;
     }
 
