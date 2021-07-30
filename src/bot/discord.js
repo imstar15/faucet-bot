@@ -1,8 +1,10 @@
 require('dotenv').config()
 const Discord = require('discord.js');
 const axios = require('axios');
+const _ = require('lodash');
 const pdKeyring = require('@polkadot/keyring');
 const config = require('../config');
+
 
 // Check environment variables valid
 if (!process.env.ACCESS_TOKEN) {
@@ -37,6 +39,11 @@ client.on('message', async msg => {
   }
 
   if (action === '!drip') {
+    if (_.isEmpty(arg0)) {
+      msg.reply('please enter a wallet address after !drip.');r
+      return;
+    }
+    
     try {
       pdKeyring.decodeAddress(arg0);
     } catch (e) {
