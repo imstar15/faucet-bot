@@ -18,7 +18,8 @@ module.exports = {
     script: './src/server/index.js',
     env: {
       FAUCET_MNEMONIC: '',
-      CHAIN_WS_ENDPOINT: ''
+      CHAIN_WS_ENDPOINT: '',
+      PORT: 5555
     },
   }, {
     name: 'discord',
