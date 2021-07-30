@@ -56,11 +56,11 @@ client.on('message', async msg => {
     });
 
     if (res.data === 'LIMIT') {
-      msg.reply(`${sender} has reached their daily quota. Only request once per 24 hours.`);
+      msg.reply(`You has reached their daily quota. Only request once per 24 hours.`);
       return;
     }
 
-    msg.reply(`Sent ${amount} ${tokenSymbol}s. View on Polkascan: ${polkascanUrl}/transaction/${res.data}.`);
+    msg.reply(`I just sent ${amount} ${tokenSymbol} to address ${arg0}. View on Polkascan: ${polkascanUrl}/transaction/${res.data}.`);
   }
 
   if (action === '!faucet') {
