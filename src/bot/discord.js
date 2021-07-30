@@ -40,7 +40,7 @@ client.on('message', async msg => {
     try {
       pdKeyring.decodeAddress(arg0);
     } catch (e) {
-      msg.reply(`You provided an incompatible address.`);
+      msg.reply(`address entered is incompatible to OAK Network.`);
       return;
     }
 
