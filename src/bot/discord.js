@@ -40,10 +40,10 @@ client.on('message', async msg => {
 
   if (action === '!drip') {
     if (_.isEmpty(arg0)) {
-      msg.reply('please enter a wallet address after !drip.');r
+      msg.reply('please enter a wallet address after !drip.');
       return;
     }
-    
+
     try {
       pdKeyring.decodeAddress(arg0);
     } catch (e) {
