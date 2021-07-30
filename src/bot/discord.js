@@ -40,14 +40,11 @@ client.on('message', async msg => {
     try {
       pdKeyring.decodeAddress(arg0);
     } catch (e) {
-      msg.reply(`address entered is incompatible to OAK Network.`);
+      msg.reply(`address ${arg0} entered is incompatible to OAK Network.`);
       return;
     }
 
     let amount = sendAmount;
-    if (sender.endsWith(':web3.foundation') && arg1) {
-      amount = arg1;
-    }
 
     const res = await ax.post('/bot-endpoint', {
       sender,
@@ -56,7 +53,7 @@ client.on('message', async msg => {
     });
 
     if (res.data === 'LIMIT') {
-      msg.reply(`You has reached their daily quota. Only request once per 24 hours.`);
+      msg.reply(`your Discord ID or the address has reached its daily quota. Please request only once every 24 hours.`);
       return;
     }
 
