@@ -12,6 +12,7 @@ if (!process.env.CHAIN_WS_ENDPOINT) {
 module.exports = {
   mnemonic: process.env.FAUCET_MNEMONIC,
   endpoint: process.env.CHAIN_WS_ENDPOINT,
+  port: process.env.PORT || 5555,
   units,
   sendAmount,
   sendTimesLimit: 1,

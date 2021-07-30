@@ -11,7 +11,7 @@ const storage = new Storage();
 
 const app = express();
 app.use(bodyParser.json());
-const port = 5555;
+const port = config.port;
 
 app.get('/health', (_, res) => {
   res.send('Faucet backend is healthy.');
