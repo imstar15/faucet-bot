@@ -26,7 +26,7 @@ class Actions {
     } catch (error) {
       console.error('Check balance failed. error: ', error);
     }
-    return free;
+    return balance;
   }
 }
 

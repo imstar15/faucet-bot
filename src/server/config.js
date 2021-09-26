@@ -6,7 +6,7 @@ if (!process.env.FAUCET_MNEMONIC) {
 }
 
 if (!process.env.CHAIN_WS_ENDPOINT) {
-  throw Error('Launch failed. FAUCET_MNEMONIC evironment variable is not set.');
+  throw Error('Launch failed. CHAIN_WS_ENDPOINT evironment variable is not set.');
 }
 
 module.exports = {

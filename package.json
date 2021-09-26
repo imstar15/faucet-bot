@@ -6,6 +6,7 @@
   "scripts": {
     "backend": "node src/server/index.js",
     "bot": "node src/bot/index.js",
+    "discord": "node src/bot/discord.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,9 +20,11 @@
     "body-parser": "^1.19.0",
     "bs58": "^4.0.1",
     "crypto": "^1.0.1",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "matrix-js-sdk": "^2.3.0",
+    "lodash": "^4.17.21",
+    "matrix-js-sdk": "^12.1.0",
     "nedb": "^1.8.0"
   }
 }
