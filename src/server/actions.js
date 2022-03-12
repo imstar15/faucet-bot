@@ -6,6 +6,7 @@ class Actions {
     const { endpoint, ss58Prefix } = polkadot;
     const provider = new WsProvider(endpoint);
     this.api = await ApiPromise.create({ provider });
+    console.log('Polkadot API initialized successfully!');
     const keyring = new pdKeyring.Keyring({ type: 'sr25519' });
     keyring.setSS58Format(ss58Prefix);
     this.account = keyring.addFromMnemonic(mnemonic);
@@ -13,7 +14,7 @@ class Actions {
 
   async sendToken(address, amount) {
     const transfer = this.api.tx.balances.transfer(address, amount);
-    const hash = await transfer.signAndSend(this.account);
+    const hash = await transfer.signAndSend(this.account, { nonce: -1 });
     return hash.toHex();
   }
 
