@@ -22,5 +22,8 @@
     "lodash": "^4.17.21",
     "matrix-js-sdk": "^12.1.0",
     "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "pm2": "^5.2.0"
   }
 }
