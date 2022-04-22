@@ -9,13 +9,13 @@ module.exports = {
         PORT: 5555
       },
     },
-    // {
-    //   name: 'discord',
-    //   script: './src/bot/discord.js',
-    //   watch: false,
-    //   env: {
-    //     BACKEND_URL: 'http://127.0.0.1:5555'
-    //   },
-    // }
+    {
+      name: 'discord',
+      script: './src/bot/discord.js',
+      watch: false,
+      env: {
+        BACKEND_URL: 'http://127.0.0.1:5555'
+      },
+    }
   ],
 };
