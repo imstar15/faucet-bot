@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const Actions = require('./actions.js');
 const Storage = require('./storage.js');
+const MongoHelper = require('./mongoHelper');
 const config = require('./config');
 
 const storage = new Storage();
@@ -36,9 +37,12 @@ const createAndApplyActions = async () => {
 }
 
 const main = async () => {
-  const { port } = config;
-  await createAndApplyActions();
-  app.listen(port, () => console.log(`Faucet backend listening on port ${port}.`));
+  // const { port } = config;
+  // await createAndApplyActions();
+  // app.listen(port, () => console.log(`Faucet backend listening on port ${port}.`));
+  const mongoHelper = new MongoHelper();
+  const client = await mongoHelper.connect();
+  console.log('client: ', client);
 }
 
 try {
