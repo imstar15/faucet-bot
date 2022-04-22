@@ -55,6 +55,11 @@ client.on('messageCreate', async msg => {
       return;
     }
 
+    if (res.data === 'ERROR') {
+      msg.reply('An error has occurred with the faucet.');
+      return;
+    }
+
     msg.reply(`I just sent ${sendAmount} ${tokenSymbol} to address ${arg0}. Extrinsic hash: ${res.data}.`);
   }
 

@@ -13,7 +13,7 @@ app.get('/health', (_, res) => {
 });
 
 const createAndApplyActions = async () => {
-  const { mnemonic, polkadot, sendTimesLimit } = config;
+  const { mnemonic, polkadot, sendTimesLimit, sendAmount, units } = config;
   const actions = new Actions();
   await actions.create({ mnemonic, polkadot });
 
@@ -23,13 +23,18 @@ const createAndApplyActions = async () => {
   });
   
   app.post('/bot-endpoint', async (req, res) => {
-    const { address, sender } = req.body;
-    if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
-      res.send('LIMIT');
-    } else {
-      storage.saveData(sender, address);
-      const hash = await actions.sendToken(address, sendAmount * units);
-      res.send(hash);
+    try {
+      const { address, sender } = req.body;
+      if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
+        res.send('LIMIT');
+      } else {
+        storage.saveData(sender, address);
+        const hash = await actions.sendToken(address, sendAmount * units);
+        res.send(hash);
+      }
+    } catch (error) {
+      console.log('/bot-endpoint, error: ', error);
+      res.send('ERROR');
     }
   });
 }
