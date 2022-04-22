@@ -74,7 +74,7 @@ jobs:
           npm install
           npm ci 
 
-    - name: database migration
+    - name: Database migration
       run: |
           npm run db:migrate
 
