@@ -2,10 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Actions = require('./actions.js');
-const Storage = require('./storage.js');
+const storage = require('./storage');
 const config = require('./config');
 
-const storage = new Storage();
 const app = express();
 app.use(bodyParser.json());
 
@@ -14,7 +13,7 @@ app.get('/health', (_, res) => {
 });
 
 const createAndApplyActions = async () => {
-  const { mnemonic, polkadot, sendTimesLimit } = config;
+  const { mnemonic, polkadot, sendTimesLimit, sendAmount, units } = config;
   const actions = new Actions();
   await actions.create({ mnemonic, polkadot });
 
@@ -24,13 +23,18 @@ const createAndApplyActions = async () => {
   });
   
   app.post('/bot-endpoint', async (req, res) => {
-    const { address, amount, sender } = req.body;
-    if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
-      res.send('LIMIT');
-    } else {
-      storage.saveData(sender, address);
-      const hash = await actions.sendToken(address, amount);
-      res.send(hash);
+    try {
+      const { address, sender } = req.body;
+      if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
+        res.send('LIMIT');
+      } else {
+        storage.saveData(sender, address);
+        const hash = await actions.sendToken(address, sendAmount * units);
+        res.send(hash);
+      }
+    } catch (error) {
+      console.log('/bot-endpoint, error: ', error);
+      res.send('ERROR');
     }
   });
 }

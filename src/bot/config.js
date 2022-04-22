@@ -1,6 +1,8 @@
+const config = require('../config')
+
 module.exports = {
-  units: 10**10,
-  sendAmount: 100,
+  units: config.units,
+  sendAmount: config.sendAmount,
   networkName: 'Neumann Network',
   tokenSymbol: 'NEU',
 }

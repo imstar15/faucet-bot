@@ -1,20 +1,7 @@
 const Datastore = require('nedb');
-const crypto = require('crypto');
-
-const SECOND  = 1000;
-const MINUTE  = 60 * SECOND; 
-const HOUR    = 60 * MINUTE;
-const DAY     = 20 * HOUR; // almost 1 day, give some room for people missing their normal daily slots
+const { sha256, now, DAY, SECOND } = require('../util');
 
 const CompactionTimeout = 10 * SECOND;
-
-const sha256 = x =>
-  crypto
-    .createHash('sha256')
-    .update(x, 'utf8')
-    .digest('hex');
-
-const now = () => new Date().getTime();
 
 class Storage {
   constructor(filename = './storage.db', autoload = true) {

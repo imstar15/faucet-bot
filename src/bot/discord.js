@@ -48,11 +48,15 @@ client.on('messageCreate', async msg => {
     const res = await ax.post('/bot-endpoint', {
       sender,
       address: arg0,
-      amount: sendAmount * units,
     });
 
     if (res.data === 'LIMIT') {
       msg.reply(`your Discord ID or the address has reached its daily quota. Please request only once every 24 hours.`);
+      return;
+    }
+
+    if (res.data === 'ERROR') {
+      msg.reply('An error has occurred with the faucet.');
       return;
     }
 
