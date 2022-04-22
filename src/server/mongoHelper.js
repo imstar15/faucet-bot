@@ -7,7 +7,7 @@ class MongoHelper {
   
   connect = async () => {
     const client = await MongoClient.connect(
-      'mongodb://charles:Rewq1234@docdb-2022-04-22-03-28-11.cluster-cp3zurulhfbo.us-east-1.docdb.amazonaws.com:27017/?ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false',
+      'mongodb://faucet:Rewq1234@vpc-0408c15ed05f0a71b.cluster-cp3zurulhfbo.us-east-1.docdb.amazonaws.com:27017/?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false',
       // 'mongodb://<sample-user>:<password>@sample-cluster.node.us-east-1.docdb.amazonaws.com:27017/sample-database?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false',
       //Specify the DocDB; cert
       { tlsCAFile: `rds-combined-ca-bundle.pem` },
