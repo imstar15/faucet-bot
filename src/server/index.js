@@ -2,11 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Actions = require('./actions.js');
-const Storage = require('./storage.js');
-const MongoHelper = require('./mongoHelper');
+const storage = require('./storage');
 const config = require('./config');
 
-const storage = new Storage();
 const app = express();
 app.use(bodyParser.json());
 
@@ -25,24 +23,21 @@ const createAndApplyActions = async () => {
   });
   
   app.post('/bot-endpoint', async (req, res) => {
-    const { address, amount, sender } = req.body;
+    const { address, sender } = req.body;
     if (!(await storage.isValid(sender, address, sendTimesLimit)) && !sender.endsWith(':web3.foundation')) {
       res.send('LIMIT');
     } else {
       storage.saveData(sender, address);
-      const hash = await actions.sendToken(address, amount);
+      const hash = await actions.sendToken(address, sendAmount * units);
       res.send(hash);
     }
   });
 }
 
 const main = async () => {
-  // const { port } = config;
-  // await createAndApplyActions();
-  // app.listen(port, () => console.log(`Faucet backend listening on port ${port}.`));
-  const mongoHelper = new MongoHelper();
-  const client = await mongoHelper.connect();
-  console.log('client: ', client);
+  const { port } = config;
+  await createAndApplyActions();
+  app.listen(port, () => console.log(`Faucet backend listening on port ${port}.`));
 }
 
 try {

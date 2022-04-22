@@ -48,7 +48,6 @@ client.on('messageCreate', async msg => {
     const res = await ax.post('/bot-endpoint', {
       sender,
       address: arg0,
-      amount: sendAmount * units,
     });
 
     if (res.data === 'LIMIT') {

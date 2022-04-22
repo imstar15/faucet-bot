@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "backend": "node src/server/index.js",
-    "bot": "node src/bot/index.js",
-    "discord": "node src/bot/discord.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:pre-migrate": "node src/server/migration/createDatabase.js",
+    "db:migrate": "npm run db:pre-migrate && node src/server/migration/migrate.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,9 +19,12 @@
     "express": "^4.17.1",
     "lodash": "^4.17.21",
     "matrix-js-sdk": "^12.1.0",
+    "moment": "^2.29.3",
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.1",
-    "nedb": "^1.8.0"
+    "mysql2": "^2.3.3",
+    "nedb": "^1.8.0",
+    "sequelize": "^6.19.0"
   },
   "devDependencies": {
     "pm2": "^5.2.0"
