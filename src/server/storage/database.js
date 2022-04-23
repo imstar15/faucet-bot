@@ -7,7 +7,6 @@ const sequelize = new Sequelize(process.env.DB_SCHEMA || 'faucet',
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
-    // dialectOptions: { ssl:'Amazon RDS' },
   }
 );
 
