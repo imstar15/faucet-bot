@@ -8,4 +8,4 @@ RUN npm ci
 
 COPY . /app
 
-ENTRYPOINT ["npm", "run", "db:migrate"]
+ENTRYPOINT ["/entrypoint.sh"]
