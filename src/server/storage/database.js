@@ -20,6 +20,13 @@ const sequelize = new Sequelize('postgres',
 
 console.log('sequelize: ', sequelize);
 
+try {
+  await sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
 const Faucet = sequelize.define('faucet', {
   item: {
     type: Sequelize.DataTypes.STRING,
