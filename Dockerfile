@@ -8,4 +8,4 @@ RUN npm ci
 
 COPY . /app
 
-ENTRYPOINT ["npm run db:migration"]
+ENTRYPOINT ["./node_modules/.bin/pm2", "start", "--no-daemon", "ecosystem.config.js"]
