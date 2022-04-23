@@ -8,4 +8,4 @@ RUN npm ci
 
 COPY . /app
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["sh", "./entrypoint.sh"]
