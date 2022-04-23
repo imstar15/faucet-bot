@@ -14,7 +14,7 @@ const sequelize = new Sequelize(process.env.DB_SCHEMA || 'root',
     host: 'database-1.cp3zurulhfbo.us-east-1.rds.amazonaws.com',
     port: 5432,
     dialect: 'postgres',
-    dialectOptions: { ssl:'Amazon RDS' },
+    // dialectOptions: { ssl:'Amazon RDS' },
   }
 );
 
