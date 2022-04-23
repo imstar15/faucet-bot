@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('faucet',
+const sequelize = new Sequelize('postgres',
   // process.env.DB_USER || 'root',
   // process.env.DB_PASSWORD || '',
   // {
@@ -17,6 +17,8 @@ const sequelize = new Sequelize('faucet',
     // dialectOptions: { ssl:'Amazon RDS' },
   }
 );
+
+console.log('sequelize: ', sequelize);
 
 const Faucet = sequelize.define('faucet', {
   item: {
